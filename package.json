@@ -1,0 +1,24 @@
+{
+  "name": "paint-online",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "start": "cd server && npm install && node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Se3men/semyon-paint.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Se3men/semyon-paint/issues"
+  },
+  "homepage": "https://github.com/Se3men/semyon-paint#readme",
+  "dependencies": {
+    "build": "^0.1.4"
+  }
+}

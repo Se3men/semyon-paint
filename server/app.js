@@ -11,6 +11,11 @@ const PORT = process.env.PORT ?? 5000;
 
 app.use(cors());
 app.use(express.json());
+app.use(express.static(path.join(__dirname, 'public')));
+
+app.get('/index', (req, res) => {
+  return res.render('index');
+});
 
 app.ws('/', (ws, req) => {
   ws.on('message', (messageJson) => {
@@ -27,7 +32,7 @@ app.ws('/', (ws, req) => {
   })
 })
 
-app.post('/', async (req, res) => {
+app.post('/image', async (req, res) => {
   try {
     const data = req.body.img.replace(`data:image/png;base64,`, '');
     await fs.writeFile(path.resolve(__dirname, 'files', `${req.query.id}.jpg`), data, 'base64');
@@ -38,7 +43,7 @@ app.post('/', async (req, res) => {
   } 
 });
 
-app.get('/', async (req, res) => {
+app.get('/image', async (req, res) => {
   try {
     const file = fs.readFile(path.resolve(__dirname, 'files', `${req.query.id}.jpg`));
     const data = `data:image/png;base64, ` + (await file).toString('base64');
