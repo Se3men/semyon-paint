@@ -27,7 +27,7 @@ app.ws('/', (ws, req) => {
   })
 })
 
-app.post('/image', async (req, res) => {
+app.post('/', async (req, res) => {
   try {
     const data = req.body.img.replace(`data:image/png;base64,`, '');
     await fs.writeFile(path.resolve(__dirname, 'files', `${req.query.id}.jpg`), data, 'base64');
@@ -38,7 +38,7 @@ app.post('/image', async (req, res) => {
   } 
 });
 
-app.get('/image', async (req, res) => {
+app.get('/', async (req, res) => {
   try {
     const file = fs.readFile(path.resolve(__dirname, 'files', `${req.query.id}.jpg`));
     const data = `data:image/png;base64, ` + (await file).toString('base64');
