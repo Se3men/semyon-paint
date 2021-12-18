@@ -21,7 +21,7 @@ const Canvas =  observer(() => {
   useEffect(() => {
     canvasState.setCanvas(canvasRef.current);
     let ctx = canvasRef.current.getContext('2d');
-    axios.get(`http://localhost:5000/image?id=${params.id}`)
+    axios.get(`https://semyon-paint.herokuapp.com/image?id=${params.id}`)
       .then(response => {
         const img = new Image()
         img.src = response.data
@@ -34,7 +34,7 @@ const Canvas =  observer(() => {
 
   useEffect(() => {
     if(canvasState.username) {
-      const socket = new WebSocket(`ws://localhost:5000/`);
+      const socket = new WebSocket(`ws://semyon-paint.herokuapp.com/`);
       canvasState.setSocket(socket);
       canvasState.setSessionId(params.id);
       toolState.setTool(new Brush(canvasRef.current, socket, params.id))
@@ -86,7 +86,7 @@ const Canvas =  observer(() => {
 
   const mouseDownHandler = () => {
     canvasState.pushToUndo(canvasRef.current.toDataURL());
-    axios.post(`http://localhost:5000/image?id=${params.id}`, {img: canvasRef.current.toDataURL()})
+    axios.post(`https://semyon-paint.herokuapp.com/image?id=${params.id}`, {img: canvasRef.current.toDataURL()})
       .then(response => console.log(response.data))
   }
 
