@@ -9,12 +9,13 @@ const path = require('path');
 
 const PORT = process.env.PORT ?? 5000;
 
-app.use(cors());
+app.use(cors({
+  origin: ['https://semyon-paint.herokuapp.com/', `ws://semyon-paint.herokuapp.com/`];
+}));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/', (req, res) => {
-  res.set('Access-Control-Allow-Origin', '*');
   return res.render('index');
 });
 
@@ -37,7 +38,6 @@ app.post('/image', async (req, res) => {
   try {
     const data = req.body.img.replace(`data:image/png;base64,`, '');
     await fs.writeFile(path.resolve(__dirname, 'files', `${req.query.id}.jpg`), data, 'base64');
-    res.set('Access-Control-Allow-Origin', '*');
     return res.status(200).json({message: 'download successfully'})
   } catch (error) {
     console.log(error);
@@ -49,7 +49,6 @@ app.get('/image', async (req, res) => {
   try {
     const file = fs.readFile(path.resolve(__dirname, 'files', `${req.query.id}.jpg`));
     const data = `data:image/png;base64, ` + (await file).toString('base64');
-    res.set('Access-Control-Allow-Origin', '*');
     res.json(data);
   } catch (error) {
     console.log(error);
