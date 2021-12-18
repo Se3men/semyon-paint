@@ -7,12 +7,12 @@ const cors = require('cors');
 const fs = require('fs').promises;
 const path = require('path');
 
-const PORT = process.env.PORT ?? 5000;
+const { PORT = 5000 } = process.env;
 
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(cors({
-  origin: ['https://semyon-paint.herokuapp.com/', 'ws://semyon-paint.herokuapp.com/'],
+  origin: ['https://semyon-paint.herokuapp.com/', 'wss://semyon-paint.herokuapp.com/'],
 }));
 
 app.get('/', (req, res) => {

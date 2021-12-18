@@ -34,7 +34,7 @@ const Canvas =  observer(() => {
 
   useEffect(() => {
     if(canvasState.username) {
-      const socket = new WebSocket(`ws://semyon-paint.herokuapp.com/`);
+      const socket = new WebSocket(`wss://semyon-paint.herokuapp.com/`);
       canvasState.setSocket(socket);
       canvasState.setSessionId(params.id);
       toolState.setTool(new Brush(canvasRef.current, socket, params.id))
