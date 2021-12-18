@@ -9,11 +9,11 @@ const path = require('path');
 
 const PORT = process.env.PORT ?? 5000;
 
-app.use(cors({
-  origin: ['http://localhost:3000/'],
-}));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(cors({
+  origin: ['https://semyon-paint.herokuapp.com/', 'ws://semyon-paint.herokuapp.com/'],
+}));
 
 app.get('/', (req, res) => {
   return res.render('index');
