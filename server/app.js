@@ -15,14 +15,10 @@ app.use(cors({
   origin: ['https://semyon-paint.herokuapp.com/', 'wss://semyon-paint.herokuapp.com/'],
 }));
 
-app.get('*', (req, res) => {
-  return res.redirect('index');
-});
-
 app.ws('/', (ws, req) => {
   ws.on('message', (messageJson) => {
     const message = JSON.parse(messageJson);
-
+    
     switch (message.method) {
       case "connection":
         connectionHandler(ws, message)
@@ -55,6 +51,10 @@ app.get('/image', async (req, res) => {
     return res.status(500).json('error');
   }
 })
+
+app.get('*', (req, res) => {
+  return res.redirect('index');
+});
 
 app.listen(PORT, () => {
   console.log(`server started on PORT: ${PORT}`);
