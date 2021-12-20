@@ -51,6 +51,7 @@ const Canvas =  observer(() => {
         }))
       }
       socket.onmessage = (event) => {
+        if (!isOpen(socket)) return;
         let msg = JSON.parse(event.data);
         switch (msg.method) {
           case 'connection':
