@@ -53,7 +53,7 @@ app.get('/image', async (req, res) => {
 })
 
 app.get('*', (req, res) => {
-  return res.redirect('index');
+  return res.render('index');
 });
 
 app.listen(PORT, () => {
@@ -68,9 +68,14 @@ const connectionHandler = (ws, msg) => {
 function broadcastConnection (ws, msg) {
   aWss.clients.forEach(client => {
     if (client.id === msg.id) {
+      if (!isOpen(socket)) return;
       client.send(JSON.stringify(msg));
     }
   })
+}
+
+function isOpen(ws) { 
+  return ws.readyState === ws.OPEN;
 }
 
 
