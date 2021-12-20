@@ -18,6 +18,8 @@ app.use(cors({
 app.ws('/', (ws, req) => {
   ws.on('message', (messageJson) => {
     const message = JSON.parse(messageJson);
+
+    setTimeout(() => ws.send(''), 30000)
     
     switch (message.method) {
       case "connection":
