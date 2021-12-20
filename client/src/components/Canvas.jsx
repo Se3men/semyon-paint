@@ -17,6 +17,10 @@ const Canvas =  observer(() => {
   const usernameRef = useRef();
   const [modal, setModal] = useState(true);
   const params = useParams();
+
+  function isOpen(ws) { 
+    return ws.readyState === ws.OPEN;
+  }
   
   useEffect(() => {
     canvasState.setCanvas(canvasRef.current);
@@ -39,6 +43,7 @@ const Canvas =  observer(() => {
       canvasState.setSessionId(params.id);
       toolState.setTool(new Brush(canvasRef.current, socket, params.id))
       socket.onopen = () => {
+        if (!isOpen(socket)) return;
         socket.send(JSON.stringify({
           id: params.id,
           username: canvasState.username,
