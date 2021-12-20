@@ -15,10 +15,9 @@ app.use(cors({
   origin: ['https://semyon-paint.herokuapp.com/', 'wss://semyon-paint.herokuapp.com/'],
 }));
 
-// app.get('/', (req, res) => {
-//   console.log(req.params);
-//   return res.render('index');
-// });
+app.get('*', (req, res) => {
+  return res.redirect('index');
+});
 
 app.ws('/', (ws, req) => {
   ws.on('message', (messageJson) => {
